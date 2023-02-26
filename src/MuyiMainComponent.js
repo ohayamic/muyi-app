@@ -1,10 +1,22 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import MuyiNavBar from "./MuyiNavBar/MuyiNavBar";
 import MuyiCard from "./MuyiCard/MuyiCard";
+import MuyiForm from "./MuyiForm/MuyiForm";
+
 const MuyiMainComponent = () => {
+  const [usersList, setUsersList] = useState([{}]);
+
+  // Read all todos
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/signUp").then((res) => {
+      setUsersList(res.data);
+    });
+  }, []);
   return (
     <Container fluid>
       <Row>
@@ -12,17 +24,15 @@ const MuyiMainComponent = () => {
           <MuyiNavBar />
         </Col>
       </Row>
+      <Col>
+        <MuyiForm />
+      </Col>
       <Row>
-        <Col
-          xs={12}
-          md={6}
-          lg={4}
-          xl={3}
-          style={{ margin: "20px" }}
-        >
-          <MuyiCard />
+        <Col>
+          <MuyiCard usersList={usersList} />
         </Col>
       </Row>
+      <Row></Row>
     </Container>
   );
 };

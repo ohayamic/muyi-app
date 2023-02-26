@@ -5,7 +5,7 @@ const MuyiNavBar = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Navbar.Brand href="#home" style={{ marginLeft: "10px" }}>
-        Muyi-App
+        IntraFind-App
       </Navbar.Brand>
       <Navbar.Toggle
         aria-controls="responsive-navbar-nav"

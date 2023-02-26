@@ -1,26 +1,51 @@
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import Placeholder from "react-bootstrap/Placeholder";
-import data from "../data.js"
+import { Link } from "react-router-dom";
 
-const MuyiCard = () => {
+import axios from "axios";
 
+const MuyiCard = ({ usersList }) => {
+  //console.log(userList);
+  const deleteTodoHandler = (email) => {
+    axios
+      .delete(`http://localhost:8000/api/signUp/${email}`)
+      .then((res) => console.log(res.data));
+  };
+  const displayUserList = usersList.map((user, index) => (
+    <Card
+      key={index}
+      style={{ width: "50%", margin: "10px auto", maxWidth: "60%" }}
+    >
+      <Card.Img
+        variant="top"
+        src="https://cdn.pixabay.com/photo/2022/11/16/18/38/mexico-7596566_960_720.jpg"
+      />
+      <Card.Body>
+        <Card.Title>{user["first_name"]}</Card.Title>
+        <Card.Text>
+          You can edit or delete the user using the button below
+        </Card.Text>
+      </Card.Body>
+      <Card.Body className="justify-content-center">
+        <Button variant="success" xs={5} style={{ marginRight: "5px" }}>
+          <Link to={`edituser/${user.first_name}`} style={{color: "white", textDecoration: "none"}}>Edit User</Link>
+        </Button>
+        <Button
+          variant="danger"
+          xs={5}
+          style={{ marginRight: "5px" }}
+          onClick={() => deleteTodoHandler(user.email)}
+        >
+          Delete User
+        </Button>
+      </Card.Body>
+    </Card>
+  ));
   return (
     <>
-      {data ? (
-        <Card style={{ width: "18rem", margin: "10px auto" }}>
-          <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
-          <Card.Body className="justify-content-end">
-            <Card.Link href="#">Card Link</Card.Link>
-            <Card.Link href="#">Another Link</Card.Link>
-          </Card.Body>
-        </Card>
+      {usersList ? (
+        <div>{displayUserList}</div>
       ) : (
         <Card style={{ width: "18rem", margin: "10px auto" }}>
           <Card.Img variant="top" src="holder.js/100px180" />
