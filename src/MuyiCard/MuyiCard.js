@@ -2,15 +2,17 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Placeholder from "react-bootstrap/Placeholder";
 import { Link } from "react-router-dom";
-
 import axios from "axios";
 
-const MuyiCard = ({ usersList }) => {
+const MuyiCard = ({ usersList, sendData }) => {
+
   /*console.log(usersList);*/
   const deleteTodoHandler = (email) => {
-    axios
-      .delete(`http://localhost:8000/api/signUp/${email}`)
-      .then((res) => console.log(res.data));
+    axios.delete(`http://localhost:8000/api/signUp/${email}`).then((res) => {
+      if (res.data) {
+        sendData(true);
+      }
+    });
   };
   const displayUserList = usersList.map((user, index) => (
     <Card
@@ -22,9 +24,7 @@ const MuyiCard = ({ usersList }) => {
         src="https://cdn.pixabay.com/photo/2022/11/16/18/38/mexico-7596566_960_720.jpg"
       />
       <Card.Body>
-        <Card.Title>
-          {user["first_name"]} 
-        </Card.Title>
+        <Card.Title>{user["first_name"]}</Card.Title>
         <Card.Text>
           You can edit or delete the user using the button below
         </Card.Text>

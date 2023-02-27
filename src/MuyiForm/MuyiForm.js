@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-const MuyiForm = () => {
+const MuyiForm = ({sendData}) => {
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
   const [Email, setEmail] = useState("");
@@ -19,7 +19,11 @@ const MuyiForm = () => {
         last_name: LastName,
         email: Email,
       })
-      .then((res) => console.log(res));
+      .then((res) => {
+        if (res) {
+          sendData(true);
+        }
+      });
   };
 
   return (
