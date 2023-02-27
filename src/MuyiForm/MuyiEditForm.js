@@ -29,14 +29,16 @@ const MuyiEditForm = (props) => {
   // Update a User
   const UpdateUserHandler = () => {
     axios
-      .patch("http://localhost:8000/api/signUp/" + firstname, {
-        first_name: FirstName,
-        last_name: LastName,
-        email: Email,
+      .put("http://localhost:8000/api/signUp/" + firstname, {
+        signup: {
+          first_name: FirstName,
+          last_name: LastName,
+          email: Email,
+        },
       })
       .then((res) => {
         if (res) {
-          navigate('/')
+          navigate("/");
         }
       });
   };

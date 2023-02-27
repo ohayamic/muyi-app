@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const MuyiCard = ({ usersList }) => {
-  //console.log(userList);
+  /*console.log(usersList);*/
   const deleteTodoHandler = (email) => {
     axios
       .delete(`http://localhost:8000/api/signUp/${email}`)
@@ -22,14 +22,21 @@ const MuyiCard = ({ usersList }) => {
         src="https://cdn.pixabay.com/photo/2022/11/16/18/38/mexico-7596566_960_720.jpg"
       />
       <Card.Body>
-        <Card.Title>{user["first_name"]}</Card.Title>
+        <Card.Title>
+          {user["first_name"]} 
+        </Card.Title>
         <Card.Text>
           You can edit or delete the user using the button below
         </Card.Text>
       </Card.Body>
       <Card.Body className="justify-content-center">
         <Button variant="success" xs={5} style={{ marginRight: "5px" }}>
-          <Link to={`edituser/${user.first_name}`} style={{color: "white", textDecoration: "none"}}>Edit User</Link>
+          <Link
+            to={`edituser/${user.first_name}`}
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Edit User
+          </Link>
         </Button>
         <Button
           variant="danger"
