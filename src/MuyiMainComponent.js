@@ -10,10 +10,13 @@ import MuyiForm from "./MuyiForm/MuyiForm";
 
 const MuyiMainComponent = () => {
   const [usersList, setUsersList] = useState([{}]);
-  const [data, setData] = useState(false);
+  const [mydata, setData] = useState(false);
 
-  const sendData = (data) => {
-    return setData(data)
+  const sendData = (mydata) => {
+    return setData(mydata);
+  };
+  const myGreeting = () => {
+    return sendData(false)
   }
   // Read all todos
   useEffect(() => {
@@ -21,12 +24,13 @@ const MuyiMainComponent = () => {
       setUsersList(res.data);
     });
   }, []);
-  if (data) {
+  if (mydata) {
       axios.get("http://localhost:8000/api/signUp").then((res) => {
         setUsersList(res.data);
       });
+    
   }
-
+setTimeout(myGreeting, 50);
   return (
     <Container fluid>
       <Row>
