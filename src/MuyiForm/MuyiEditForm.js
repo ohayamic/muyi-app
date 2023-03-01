@@ -27,14 +27,12 @@ const MuyiEditForm = (props) => {
   }, [firstname]);
 
   // Update a User
-  const UpdateUserHandler = () => {
+const UpdateUserHandler = () => {
     axios
-      .put("http://localhost:8000/api/signUp/" + firstname, {
-        signup: {
-          first_name: FirstName,
-          last_name: LastName,
-          email: Email,
-        },
+      .put(`http://localhost:8000/api/signUp/${LastName}`, {
+        first_name: FirstName,
+        last_name: LastName,
+        email: Email,
       })
       .then((res) => {
         if (res) {
