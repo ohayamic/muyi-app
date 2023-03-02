@@ -50,6 +50,13 @@ const MuyiForm = ({sendData}) => {
               placeholder="Your Firstname"
               onChange={(event) => setFirstName(event.target.value)}
             />
+            {!Email ? (
+              <Form.Text className="text-muted">
+                <span style={{ color: "red" }}>
+                  Please enter your first name
+                </span>
+              </Form.Text>
+            ) : null}
           </Col>
         </Form.Group>{" "}
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextLastName">
@@ -62,6 +69,13 @@ const MuyiForm = ({sendData}) => {
               placeholder="Your Lastname"
               onChange={(event) => setLastName(event.target.value)}
             />
+            {!LastName ? (
+              <Form.Text className="text-muted">
+                <span style={{ color: "red" }}>
+                  Please enter your last name
+                </span>
+              </Form.Text>
+            ) : null}
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
@@ -74,12 +88,25 @@ const MuyiForm = ({sendData}) => {
               placeholder="Your Email"
               onChange={(event) => setEmail(event.target.value)}
             />
+            {!Email ? (
+              <Form.Text className="text-muted">
+                <span style={{ color: "red" }}>
+                  Please enter your email address
+                </span>
+              </Form.Text>
+            ) : null}
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Button variant="primary" xs={5} onClick={addUserHandler}>
-            Add User
-          </Button>
+          {!FirstName && !LastName && !Email ? (
+            <Button variant="primary" xs={5} onClick={addUserHandler} disabled>
+              Add User
+            </Button>
+          ) : (
+            <Button variant="primary" xs={5} onClick={addUserHandler}>
+              Add User
+            </Button>
+          )}
         </Form.Group>
       </Form>
     </section>
