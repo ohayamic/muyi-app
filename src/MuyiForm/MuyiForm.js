@@ -98,7 +98,7 @@ const MuyiForm = ({sendData}) => {
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          {!FirstName && !LastName && !Email ? (
+          {!FirstName || !LastName || !Email ? (
             <Button variant="primary" xs={5} onClick={addUserHandler} disabled>
               Add User
             </Button>
