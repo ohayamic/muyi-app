@@ -10,6 +10,20 @@ const MuyiForm = ({sendData}) => {
   const [LastName, setLastName] = useState("");
   const [Email, setEmail] = useState("");
 
+ /*  const [state, setState] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+  });
+  const geInput = (e) => {
+    const [name, value] = e.target;
+    setState({
+      ...state,
+      [name]: value,
+    });
+    console.log(value);
+  };
+ */
   // Post a User
   const addUserHandler = () => {
     //console.log(FirstName, LastName, Email);
@@ -50,7 +64,7 @@ const MuyiForm = ({sendData}) => {
               placeholder="Your Firstname"
               onChange={(event) => setFirstName(event.target.value)}
             />
-            {!Email ? (
+            {!FirstName ? (
               <Form.Text className="text-muted">
                 <span style={{ color: "red" }}>
                   Please enter your first name
