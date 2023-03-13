@@ -1,13 +1,11 @@
-import React, { useState} from "react";
-import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-
+import MuyiNavBar from "../MuyiNavBar/MuyiNavBar";
 import axios from "axios";
-import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 
-const MuyiForm = ({sendData}) => {
+/* const MuyiForm = ({sendData}) => {
   let [FirstName, setFirstName] = useState("");
   let [LastName, setLastName] = useState("");
   let [Email, setEmail] = useState("");
@@ -116,86 +114,156 @@ const MuyiForm = ({sendData}) => {
       </Form>
     </section>
   );
-};
-export default MuyiForm;
+}; */
+//export default MuyiForm;
 
-
-function FormFloatingBasicExample({ sendData }) {
-  
-  let [FirstName, setFirstName] = useState("");
-  let [LastName, setLastName] = useState("");
-  let [Email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
+function MuyiForm({ sendData }) {
+  const [validated, setValidated] = useState(false);
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Post a User
-  const addUserHandler = () => {
+  const addUserHandler = (event) => {
     //console.log(FirstName, LastName, Email);
-    axios
-      .post("http://localhost:8000/api/signUp/", {
-        first_name: FirstName,
-        last_name: LastName,
-        email: Email,
-        password: password
-      })
-      .then((res) => {
-        if (res) {
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          sendData(true);
-        }
-      });
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      setValidated(true);
+
+      axios
+        .post("http://localhost:8000/api/signUp/", {
+          first_name: FirstName,
+          last_name: LastName,
+          email: Email,
+          password: password,
+        })
+        .then((res) => {
+          if (res) {
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            sendData(true);
+          }
+        });
+    }
   };
 
   return (
     <>
-      <FloatingLabel
-        controlId="floatingInput"
-        label="First name"
-        className="mb-3"
+      <MuyiNavBar />
+      <section
+        style={{
+          border: "1px solid",
+          borderRadius: "20px",
+          width: "60%",
+          margin: "20px auto",
+        }}
       >
-        <Form.Control
-          type="text"
-          placeholder="Enter first name"
-          onChange={(event) => setFirstName(event.target.value)}
-        />
-      </FloatingLabel>
-      <FloatingLabel
-        controlId="floatingInput"
-        label="Last name"
-        className="mb-3"
-      >
-        <Form.Control
-          type="email"
-          placeholder="Enter last name"
-          onChange={(event) => setLastName(event.target.value)}
-        />
-      </FloatingLabel>
-      <FloatingLabel
-        controlId="floatingInput"
-        label="Email address"
-        className="mb-3"
-      >
-        <Form.Control
-          type="email"
-          placeholder="name@example.com"
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </FloatingLabel>
-      <FloatingLabel controlId="floatingPassword" label="Password">
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </FloatingLabel>
-      <FloatingLabel controlId="floatingPassword" label="Repeat Password">
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </FloatingLabel>
+        <Form
+          style={{ maxWidth: "60%", margin: "20px auto" }}
+          noValidate
+          validated={validated}
+          onSubmit={addUserHandler}
+        >
+          <FloatingLabel
+            controlId="floatingFirstname"
+            label="First name"
+            className="mb-3"
+          >
+            <Form.Control
+              type="text"
+              required
+              placeholder="Enter first name"
+              onChange={(event) => setFirstName(event.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid first name.
+            </Form.Control.Feedback>
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="floatingLastname"
+            label="Last name"
+            className="mb-3"
+          >
+            <Form.Control
+              type="text"
+              required
+              placeholder="Enter last name"
+              onChange={(event) => setLastName(event.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid last name
+            </Form.Control.Feedback>
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="floatingEmail"
+            label="Email address"
+            className="mb-3"
+          >
+            <Form.Control
+              type="email"
+              required
+              placeholder="name@example.com"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid email address.
+            </Form.Control.Feedback>
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="floatingPassword1"
+            label="Password"
+            className="mb-3"
+          >
+            <Form.Control
+              type="password"
+              required
+              placeholder="Password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid password.
+            </Form.Control.Feedback>
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="floatingPassword2"
+            label="Repeat Password"
+            className="mb-3"
+          >
+            <Form.Control
+              type="password"
+              required
+              placeholder="Password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              Password must match.
+            </Form.Control.Feedback>
+          </FloatingLabel>
+          <div style={{ margin: "20px auto", width: "80%" }}>
+            <Button
+              type="submit"
+              variant="outline-primary"
+              style={{ width: "40%" }}
+            >
+              Submit
+            </Button>{" "}
+            <Button
+              variant="outline-secondary"
+              style={{ width: "40%" }}
+              href="/"
+            >
+              Return to home
+            </Button>{" "}
+          </div>
+        </Form>
+      </section>
     </>
   );
 }
+
+export default MuyiForm;

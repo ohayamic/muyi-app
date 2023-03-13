@@ -2,17 +2,18 @@ import MuyiNavBar from "../MuyiNavBar/MuyiNavBar";
 import { useNavigate, useParams } from "react-router-dom";
 
 import React, { useState, useEffect } from "react";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
+
 
 const MuyiEditForm = (props) => {
+  const [validated, setValidated] = useState(false);
   const [userList, setUserList] = useState([{}]);
-  const [FirstName, setFirstName] = useState("");
-  const [LastName, setLastName] = useState("");
-  const [Email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   // Get params
   let { id } = useParams();
@@ -26,18 +27,28 @@ const MuyiEditForm = (props) => {
   }, [id]);
 
   // Update a User
-const UpdateUserHandler = () => {
-    axios
-      .put(`http://localhost:8000/api/signUp/${LastName}`, {
-        first_name: FirstName,
-        last_name: LastName,
-        email: Email,
-      })
-      .then((res) => {
-        if (res) {
-          navigate("/");
-        }
-      });
+  const addUserHandler = (event) => {
+    //console.log(FirstName, LastName, Email);
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      setValidated(true);
+
+      axios
+        .post("http://localhost:8000/api/signUp/", {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          if (res) {
+            setEmail("");
+            setPassword('')
+
+          }
+        });
+    }
   };
 console.log(userList)
   return (
@@ -51,56 +62,54 @@ console.log(userList)
           margin: "20px auto",
         }}
       >
-        <Form style={{ maxWidth: "60%", margin: "20px auto" }}>
-          <Form.Group
-            as={Row}
+        <Form
+          noValidate
+          validated={validated}
+          onSubmit={addUserHandler}
+          style={{ maxWidth: "60%", margin: "20px auto" }}
+        >
+          <FloatingLabel
+            controlId="floatingInput"
+            label="Email address"
             className="mb-3"
-            controlId="formPlaintextFirstName"
           >
-            <Form.Label column sm="2">
-              First Name
-            </Form.Label>
-            <Col sm="10">
-              <Form.Control
-                type="text"
-                placeholder={userList.first_name}
-                onChange={(event) => setFirstName(event.target.value)}
-              />
-            </Col>
-          </Form.Group>{" "}
-          <Form.Group
-            as={Row}
-            className="mb-3"
-            controlId="formPlaintextLastName"
-          >
-            <Form.Label column sm="2">
-              Last Name
-            </Form.Label>
-            <Col sm="10">
-              <Form.Control
-                type="text"
-                placeholder={userList.last_name}
-                onChange={(event) => setLastName(event.target.value)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-            <Form.Label column sm="2">
-              Email
-            </Form.Label>
-            <Col sm="10">
-              <Form.Control
-                type="email"
-                placeholder={userList.email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-            <Button variant="primary" xs={5} onClick={UpdateUserHandler}>
-              Update User
-            </Button>
-          </Form.Group>
+            <Form.Control
+              type="email"
+              required
+              placeholder="name@example.com"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid email address.
+            </Form.Control.Feedback>
+          </FloatingLabel>
+          <FloatingLabel controlId="floatingPassword" label="Password">
+            <Form.Control
+              type="password"
+              required
+              placeholder="Password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid password.
+            </Form.Control.Feedback>
+          </FloatingLabel>
+          <div style={{ margin: "20px auto", width: "80%" }}>
+            <Button
+              type="submit"
+              variant="outline-primary"
+              style={{ width: "40%" }}
+            >
+              Submit
+            </Button>{" "}
+            <Button
+              variant="outline-secondary"
+              style={{ width: "40%" }}
+              href="/"
+            >
+              Return to home
+            </Button>{" "}
+          </div>
         </Form>
       </section>
     </>

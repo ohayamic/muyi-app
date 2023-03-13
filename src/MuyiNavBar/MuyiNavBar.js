@@ -7,7 +7,7 @@ const MuyiNavBar = () => {
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="/">
           <span style={{fontSize:"35px", marginRight:"5px"}}>Exotic</span>
           <span style={{fontSize:"17px"}}>Boutique</span>
         </Navbar.Brand>
@@ -28,8 +28,8 @@ const MuyiNavBar = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Sign up</Nav.Link>
-            <Nav.Link href="#action2">Sign in</Nav.Link>
+            <Nav.Link href="/signup">Sign up</Nav.Link>
+            <Nav.Link href="/signin">Sign in</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
