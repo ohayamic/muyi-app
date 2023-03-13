@@ -1,29 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Button from "react-bootstrap/Button";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
 const MuyiForm = ({sendData}) => {
-  const [FirstName, setFirstName] = useState("");
-  const [LastName, setLastName] = useState("");
-  const [Email, setEmail] = useState("");
+  let [FirstName, setFirstName] = useState("");
+  let [LastName, setLastName] = useState("");
+  let [Email, setEmail] = useState("");
 
- /*  const [state, setState] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-  });
-  const geInput = (e) => {
-    const [name, value] = e.target;
-    setState({
-      ...state,
-      [name]: value,
-    });
-    console.log(value);
-  };
- */
   // Post a User
   const addUserHandler = () => {
     //console.log(FirstName, LastName, Email);
@@ -35,6 +23,9 @@ const MuyiForm = ({sendData}) => {
       })
       .then((res) => {
         if (res) {
+          setFirstName("")
+          setLastName("")
+          setEmail("")
           sendData(true);
         }
       });
@@ -127,3 +118,84 @@ const MuyiForm = ({sendData}) => {
   );
 };
 export default MuyiForm;
+
+
+function FormFloatingBasicExample({ sendData }) {
+  
+  let [FirstName, setFirstName] = useState("");
+  let [LastName, setLastName] = useState("");
+  let [Email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+
+  // Post a User
+  const addUserHandler = () => {
+    //console.log(FirstName, LastName, Email);
+    axios
+      .post("http://localhost:8000/api/signUp/", {
+        first_name: FirstName,
+        last_name: LastName,
+        email: Email,
+        password: password
+      })
+      .then((res) => {
+        if (res) {
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          sendData(true);
+        }
+      });
+  };
+
+  return (
+    <>
+      <FloatingLabel
+        controlId="floatingInput"
+        label="First name"
+        className="mb-3"
+      >
+        <Form.Control
+          type="text"
+          placeholder="Enter first name"
+          onChange={(event) => setFirstName(event.target.value)}
+        />
+      </FloatingLabel>
+      <FloatingLabel
+        controlId="floatingInput"
+        label="Last name"
+        className="mb-3"
+      >
+        <Form.Control
+          type="email"
+          placeholder="Enter last name"
+          onChange={(event) => setLastName(event.target.value)}
+        />
+      </FloatingLabel>
+      <FloatingLabel
+        controlId="floatingInput"
+        label="Email address"
+        className="mb-3"
+      >
+        <Form.Control
+          type="email"
+          placeholder="name@example.com"
+          onChange={(event) => setEmail(event.target.value)}
+        />
+      </FloatingLabel>
+      <FloatingLabel controlId="floatingPassword" label="Password">
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </FloatingLabel>
+      <FloatingLabel controlId="floatingPassword" label="Repeat Password">
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </FloatingLabel>
+    </>
+  );
+}

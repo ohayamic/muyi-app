@@ -6,7 +6,6 @@ import axios from "axios";
 
 import MuyiNavBar from "./MuyiNavBar/MuyiNavBar";
 import MuyiCard from "./MuyiCard/MuyiCard";
-import MuyiForm from "./MuyiForm/MuyiForm";
 
 const MuyiMainComponent = () => {
   const [usersList, setUsersList] = useState([{}]);
@@ -15,22 +14,22 @@ const MuyiMainComponent = () => {
   const sendData = (mydata) => {
     return setData(mydata);
   };
-  const myGreeting = () => {
-    return sendData(false)
-  }
+  const changeData = () => {
+    return sendData(false);
+  };
   // Read all todos
   useEffect(() => {
-    axios.get("http://localhost:8000/api/signUp").then((res) => {
+    axios.get("https://fakestoreapi.com/products").then((res) => {
       setUsersList(res.data);
     });
   }, []);
   if (mydata) {
-      axios.get("http://localhost:8000/api/signUp").then((res) => {
-        setUsersList(res.data);
-      });
-    
+    axios.get("https://fakestoreapi.com/products").then((res) => {
+      setUsersList(res.data);
+    });
   }
-setTimeout(myGreeting, 50);
+  //console.log(usersList);
+  setTimeout(changeData, 50);
   return (
     <Container fluid>
       <Row>
@@ -38,14 +37,9 @@ setTimeout(myGreeting, 50);
           <MuyiNavBar />
         </Col>
       </Row>
-      <Col>
-        <MuyiForm sendData={sendData} />
-      </Col>
-      <Row>
-        <Col>
-          <MuyiCard usersList={usersList} sendData={sendData} />
-        </Col>
-      </Row>
+      <div style={{ width: "80%", margin: "10px auto", maxWidth: "80%" }}>
+        <MuyiCard usersList={usersList} sendData={sendData} />
+      </div>
       <Row></Row>
     </Container>
   );

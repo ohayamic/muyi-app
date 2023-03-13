@@ -7,7 +7,7 @@ import MuyiEditForm from "./MuyiForm/MuyiEditForm";
 
 const router = createBrowserRouter([
   { path: "/", element: <MuyiMainComponent /> },
-  { path: "edituser/:firstname", element: <MuyiEditForm /> },
+  { path: "viewproduct/:id", element: <MuyiEditForm /> },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

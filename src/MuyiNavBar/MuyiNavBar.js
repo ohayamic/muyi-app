@@ -1,28 +1,38 @@
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
 
 const MuyiNavBar = () => {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand href="#home" style={{ marginLeft: "10px" }}>
-        IntraFind-App
-      </Navbar.Brand>
-      <Navbar.Toggle
-        aria-controls="responsive-navbar-nav"
-        style={{ marginRight: "10px" }}
-      />
-      <Navbar.Collapse
-        className="justify-content-end"
-        id="responsive-navbar-nav"
-        style={{ marginLeft: "30px" }}
-      >
-        <Nav>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#about">About</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
-          <Nav.Link href="#others">Others</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
+    <Navbar bg="dark" expand="lg" variant="dark">
+      <Container fluid>
+        <Navbar.Brand href="#">
+          <span style={{fontSize:"35px", marginRight:"5px"}}>Exotic</span>
+          <span style={{fontSize:"17px"}}>Boutique</span>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <div style={{ margin: "0 auto", width: "50%" }}>
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+            </Form>
+          </div>
+          <Nav
+            className="me-left my-2 my-lg-0"
+            style={{ maxHeight: "100px" }}
+            navbarScroll
+          >
+            <Nav.Link href="#action1">Sign up</Nav.Link>
+            <Nav.Link href="#action2">Sign in</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };

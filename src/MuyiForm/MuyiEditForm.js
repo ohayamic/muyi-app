@@ -15,16 +15,15 @@ const MuyiEditForm = (props) => {
   const [Email, setEmail] = useState("");
 
   // Get params
-  let { firstname } = useParams();
+  let { id } = useParams();
+  console.log(id)
   const navigate = useNavigate()
-  // Read all todos
+  // Read single todo
   useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/signUp/${firstname}`)
-      .then((res) => {
-        setUserList(res.data);
-      });
-  }, [firstname]);
+    axios.get(`https://fakestoreapi.com/products/${id}`).then((res) => {
+      setUserList(res.data);
+    });
+  }, [id]);
 
   // Update a User
 const UpdateUserHandler = () => {
@@ -40,7 +39,7 @@ const UpdateUserHandler = () => {
         }
       });
   };
-
+console.log(userList)
   return (
     <>
       <MuyiNavBar />

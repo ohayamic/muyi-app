@@ -1,54 +1,55 @@
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Placeholder from "react-bootstrap/Placeholder";
 import { Link } from "react-router-dom";
-import axios from "axios";
+//import axios from "axios";
 
 const MuyiCard = ({ usersList, sendData }) => {
-
   /*console.log(usersList);*/
-  const deleteTodoHandler = (email) => {
+  /*const deleteTodoHandler = (email) => {
     axios.delete(`http://localhost:8000/api/signUp/${email}`).then((res) => {
       if (res.data) {
         sendData(true);
       }
     });
-  };
-  const displayUserList = usersList.map((user, index) => (
-    <Card
-      key={index}
-      style={{ width: "50%", margin: "10px auto", maxWidth: "60%" }}
-    >
-      <Card.Img
-        variant="top"
-        src="https://cdn.pixabay.com/photo/2022/11/16/18/38/mexico-7596566_960_720.jpg"
-      />
-      <Card.Body>
-        <Card.Title>{user["first_name"]}</Card.Title>
-        <Card.Text>
-          You can edit or delete the user using the button below
-        </Card.Text>
-      </Card.Body>
-      <Card.Body className="justify-content-center">
-        <Button variant="success" xs={5} style={{ marginRight: "5px" }}>
-          <Link
-            to={`edituser/${user.first_name}`}
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            Edit User
-          </Link>
-        </Button>
-        <Button
-          variant="danger"
-          xs={5}
-          style={{ marginRight: "5px" }}
-          onClick={() => deleteTodoHandler(user.email)}
-        >
-          Delete User
-        </Button>
-      </Card.Body>
-    </Card>
-  ));
+  }; */
+  const displayUserList = (
+    <Row>
+      {usersList.map((user, index) => (
+        <Col xs={12} md={3} key={index}>
+          <Card style={{ margin: "10px auto", maxWidth: "100%" }}>
+            <Link
+              to={`viewproduct/${user.id}`}
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              <Card.Img
+                variant="bottom"
+                as="img"
+                width={200}
+                height={300}
+                src={user.image && user.image}
+                alt={user.title}
+              />
+            </Link>
+
+            <Card.Body
+              className="justify-content-center"
+              style={{ margin: "0px auto" }}
+            >
+              <Card.Title>{user.category}</Card.Title>
+              <Card.Title>${user.price}</Card.Title>
+              <Card.Text>
+                {user?.title?.length > 15
+                  ? user?.title?.slice(0, 15) + ` ...`
+                  : user?.title}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+    </Row>
+  );
   return (
     <>
       {usersList ? (
