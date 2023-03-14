@@ -117,7 +117,7 @@ import Button from "react-bootstrap/Button";
 }; */
 //export default MuyiForm;
 
-function MuyiForm({ sendData }) {
+function MuyiSignupForm({ sendData }) {
   const [validated, setValidated] = useState(false);
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
@@ -266,4 +266,4 @@ function MuyiForm({ sendData }) {
   );
 }
 
-export default MuyiForm;
+export default MuyiSignupForm;

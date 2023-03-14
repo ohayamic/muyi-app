@@ -9,7 +9,7 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 
 
-const MuyiEditForm = (props) => {
+const MuyiSigninForm = (props) => {
   const [validated, setValidated] = useState(false);
   const [userList, setUserList] = useState([{}]);
   const [password, setPassword] = useState("");
@@ -19,7 +19,8 @@ const MuyiEditForm = (props) => {
   let { id } = useParams();
   console.log(id)
   const navigate = useNavigate()
-  // Read single todo
+  
+  // Read single product
   useEffect(() => {
     axios.get(`https://fakestoreapi.com/products/${id}`).then((res) => {
       setUserList(res.data);
@@ -115,4 +116,4 @@ console.log(userList)
     </>
   );
 };
-export default MuyiEditForm;
+export default MuyiSigninForm;

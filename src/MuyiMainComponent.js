@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import MuyiNavBar from "./MuyiNavBar/MuyiNavBar";
+import MuyiFooter from "./MuyiNavBar/MuyiFooter";
 import MuyiCard from "./MuyiCard/MuyiCard";
 
 const MuyiMainComponent = () => {
@@ -40,7 +41,9 @@ const MuyiMainComponent = () => {
       <div style={{ width: "80%", margin: "10px auto", maxWidth: "80%" }}>
         <MuyiCard usersList={usersList} sendData={sendData} />
       </div>
-      <Row></Row>
+      <Row>
+        <MuyiFooter />
+      </Row>
     </Container>
   );
 };
